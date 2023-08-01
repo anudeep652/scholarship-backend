@@ -1,9 +1,10 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import router from "./routes/addToDbRoutes";
+import DataRouter from "./routes/addToDbRoutes";
 import { login } from "./controller/admin";
 import cors from "cors";
+import filterRoutes from "./routes/filterRoutes";
 
 dotenv.config();
 
@@ -14,7 +15,8 @@ app.use(
   })
 );
 app.use(express.json());
-app.use("/scholarship", router);
+app.use("/scholarship", DataRouter);
+app.use("/findscholarship", filterRoutes);
 app.post("/login", login);
 
 const connection = async () => {
