@@ -1,5 +1,8 @@
 import { Request, Response } from "express";
 
+// * @desc    Login  admin
+// * @route   POST /login
+// * @access  Private
 export const login = async (req: Request, res: Response) => {
   const { username, password } = req.body;
   console.log(username, password);

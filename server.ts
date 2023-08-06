@@ -5,6 +5,7 @@ import DataRouter from "./routes/addToDbRoutes";
 import { login } from "./controller/admin";
 import cors from "cors";
 import filterRoutes from "./routes/filterRoutes";
+import authRoutes from "./routes/authRoutes";
 
 dotenv.config();
 
@@ -17,6 +18,7 @@ app.use(
 app.use(express.json());
 app.use("/scholarship", DataRouter);
 app.use("/findscholarship", filterRoutes);
+app.use("/user", authRoutes);
 app.post("/login", login);
 
 const connection = async () => {
