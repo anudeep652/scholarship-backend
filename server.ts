@@ -25,12 +25,13 @@ const connection = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI || "");
     console.log("Succesfully connencted to Db");
+    app.listen(3000, () => {
+    console.log("App is listening on port 3000");
+});
+
   } catch (error) {
     console.log("Error connecting to db", error);
   }
 };
 connection();
 
-app.listen(3000, () => {
-  console.log("App is listening on port 3000");
-});
