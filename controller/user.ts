@@ -10,7 +10,7 @@ export const loginUser = async (req: Request, res: Response) => {
   const { email, password } = req.body;
   //checking if any field is empty
   if (!email || !password) {
-    return res.status(400).json({ message: "Please fill all the fields " });
+    return res.status(400).json({ error: "Please fill all the fields " });
   }
 
   //checking if the user  exists
@@ -24,9 +24,9 @@ export const loginUser = async (req: Request, res: Response) => {
         token: generateJwt(userExists._id),
       });
     }
-    return res.status(400).json({ message: "Invalid password" });
+    return res.status(400).json({ error: "Invalid password" });
   }
-  return res.status(400).json({ message: "No user with this email found" });
+  return res.status(400).json({ error: "No user with this email found" });
 };
 
 // * @desc    Register new user
@@ -43,12 +43,12 @@ export const registerUser = async (req: Request, res: Response) => {
   //checking if the user already exists
   const userExists: any = await User.findOne({ username: username });
   if (userExists) {
-    return res.status(400).json({ message: "This username already exists" });
+    return res.status(400).json({ error: "This username already exists" });
   }
 
   const userEmailExists = await User.findOne({ email: email });
   if (userEmailExists) {
-    return res.status(400).json({ message: "This email already exists" });
+    return res.status(400).json({ error: "This email already exists" });
   }
 
   //validating email
@@ -72,12 +72,12 @@ export const registerUser = async (req: Request, res: Response) => {
           });
         }
       } catch (error) {
-        return res.status(400).json({ message: "It is an error" });
+        return res.status(400).json({ error: "It is an error" });
       }
     }
 
-    return res.status(400).json({ message: "Passwords doesn't match" });
+    return res.status(400).json({ error: "Passwords doesn't match" });
   }
 
-  return res.status(400).json({ message: "Invalid email" });
+  return res.status(400).json({ error: "Invalid email" });
 };
