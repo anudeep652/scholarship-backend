@@ -1,5 +1,5 @@
 import express from "express";
-import { filter } from "../controller/filter";
+import { filter } from "../controller/filtercontroller";
 
 const router = express.Router();
 

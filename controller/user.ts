@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import User from "../models/UserSchema";
 import bcrypt from "bcryptjs";
-import { generateJwt, validateEmail } from "../helpers";
+import { generateJwt, validateEmail } from "../helpers/authHelpers";
 
 // * @desc    Login  user
 // * @route   POST /user/login

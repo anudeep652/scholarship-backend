@@ -12,7 +12,10 @@ const underTenth = new mongoose.Schema(
     parentOccupation: {
       type: [String],
     },
-    marksPercentage: Number,
+    marksPercentage: {
+      type: Number,
+      required: true,
+    },
     annualIncome: {
       type: Number,
       required: true,

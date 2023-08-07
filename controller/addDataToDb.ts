@@ -44,7 +44,7 @@ export const addDataToDb = async (req: Request, res: Response) => {
 };
 
 const addDataToUTenth = async (
-  Sreq: Request,
+  req: Request,
   res: Response,
   scholarshipData: any
 ) => {
@@ -57,7 +57,7 @@ const addDataToUTenth = async (
 };
 
 const AddDataToAboveTenth = async (
-  Sreq: Request,
+  req: Request,
   res: Response,
   scholarshipData: any
 ) => {
@@ -70,7 +70,7 @@ const AddDataToAboveTenth = async (
 };
 
 const AddDataToUG = async (
-  Sreq: Request,
+  req: Request,
   res: Response,
   scholarshipData: any
 ) => {
@@ -83,7 +83,7 @@ const AddDataToUG = async (
 };
 
 const AddDataToPG = async (
-  Sreq: Request,
+  req: Request,
   res: Response,
   scholarshipData: any
 ) => {
@@ -96,7 +96,7 @@ const AddDataToPG = async (
 };
 
 const AddDataToDiploma = async (
-  Sreq: Request,
+  req: Request,
   res: Response,
   scholarshipData: any
 ) => {
