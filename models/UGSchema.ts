@@ -48,6 +48,7 @@ const UGSchema = new mongoose.Schema({
     },
   },
   yearOfStudy: Number,
+  isGovtSch: Boolean,
 });
 
 export default mongoose.model("UG", UGSchema);

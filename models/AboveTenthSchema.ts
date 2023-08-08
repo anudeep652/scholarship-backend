@@ -42,6 +42,7 @@ const AboveTenth = new mongoose.Schema({
   maximumFamilySiblings: Number,
   Nationality: String,
   community: [String],
+  isGovtSch: Boolean,
 });
 
 export default mongoose.model("Abovetenth", AboveTenth);

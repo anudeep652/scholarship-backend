@@ -44,6 +44,7 @@ const underTenth = new mongoose.Schema(
     },
     maximumFamilySiblings: Number,
     Nationality: String,
+    isGovtSch: Boolean,
   },
   {
     timestamps: true,

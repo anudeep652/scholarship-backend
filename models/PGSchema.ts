@@ -48,6 +48,7 @@ const PGSchema = new mongoose.Schema({
     },
   },
   yearOfStudy: Number,
+  isGovtSch: Boolean,
 });
 
 export default mongoose.model("PG", PGSchema);

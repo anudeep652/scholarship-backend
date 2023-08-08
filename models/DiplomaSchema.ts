@@ -49,6 +49,7 @@ const DiplomaSchema = new mongoose.Schema({
     },
   },
   yearOfStudy: Number,
+  isGovtSch: Boolean,
 });
 
 export default mongoose.model("Diplomo", DiplomaSchema);
