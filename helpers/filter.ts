@@ -48,7 +48,7 @@ export const myfilter = (
       return (
         sch.shouldBeFromMinorCommunity === isFromMinorCommunity &&
         sch.community.includes(community) &&
-        sch.yearOfStudy === yearOfStudy &&
+        yearOfStudy <= sch.yearOfStudy &&
         ageGrp <= sch.ageGrp.max &&
         ageGrp >= sch.ageGrp.min
       );

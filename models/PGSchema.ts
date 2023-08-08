@@ -47,6 +47,7 @@ const PGSchema = new mongoose.Schema({
       max: Number,
     },
   },
+  forSpecialCategory: Boolean,
   yearOfStudy: Number,
   isGovtSch: Boolean,
 });

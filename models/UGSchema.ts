@@ -37,6 +37,7 @@ const UGSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  forSpecialCategory: Boolean,
   shouldBeFromMinorCommunity: Boolean,
   maximumFamilySiblings: Number,
   Nationality: String,
