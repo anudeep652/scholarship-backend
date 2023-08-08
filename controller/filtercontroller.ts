@@ -66,7 +66,7 @@ const handleAtenth = async (req: Request, res: Response, data: TaTenth) => {
 const handleUg = async (req: Request, res: Response, data: Tug) => {
   const { isGirl } = data;
   try {
-    let schs = await Ug.find({ shouldBeGirl: isGirl });
+    let schs = await Ug.find({});
 
     let filteredSchs = myfilter(Grade.UG, schs, data);
 
@@ -79,7 +79,7 @@ const handleUg = async (req: Request, res: Response, data: Tug) => {
 const handlePg = async (req: Request, res: Response, data: Tpg) => {
   const { isGirl } = data;
   try {
-    let schs = await Pg.find({ shouldBeGirl: isGirl });
+    let schs = await Pg.find({});
 
     let filteredSchs = myfilter(Grade.PG, schs, data);
 

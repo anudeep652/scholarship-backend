@@ -13,46 +13,113 @@ export const myfilter = (
     isSpecialCategory,
     Nationality,
     maximumFamilySiblings,
+    isGirl,
   } = userDetail;
+  console.log("0:  ", schs);
   schs = schs.filter((sch: any) => {
     return (
-      marksPercentage >= sch.marksPercentage &&
+      // marksPercentage >= sch.marksPercentage &&
       inArray(sch.state, state) &&
-      inArray(sch.parentOccupation, parentOccupation) &&
       annualIncome <= sch.annualIncome &&
-      sch.forSpecialCategory === isSpecialCategory &&
+      // sch.forSpecialCategory === isSpecialCategory &&
       sch.Nationality &&
-      sch.Nationality === Nationality &&
-      sch.maximumFamilySiblings &&
-      maximumFamilySiblings <= sch.maximumFamilySiblings
+      sch.Nationality === Nationality
     );
   });
+  console.log("1:  ", schs);
 
-  if (grade === Grade.ATENTH && "community" in userDetail) {
-    const { community } = userDetail;
-    schs = schs.filter((sch: any) => sch.community.includes(community));
+  if (!isGirl) {
+    schs = schs.filter((sch: any) => {
+      return sch.shouldBeGirl === false;
+    });
   }
+
+  schs = schs.filter((sch: any) => {
+    if (sch.maximumFamilySiblings) {
+      return maximumFamilySiblings <= sch.maximumFamilySiblings;
+    }
+    return true;
+  });
+
+  // schs = schs.filter((sch: any) =>{
+  // if (Array.isArray(schs.parentOccupation)) {
+
+  //   inArray(sch.parentOccupation, parentOccupation)
+  // }
+  // )}
+  schs = schs.filter((sch: any) => {
+    if (sch.forSpecialCategory) {
+      return isSpecialCategory === sch.forSpecialCategory;
+    }
+    return true;
+  });
+
+  schs = schs.filter((sch: any) => {
+    if (sch.marksPercentage) {
+      return marksPercentage >= sch.marksPercentage;
+    }
+    return true;
+  });
+
+  schs = schs.filter((sch: any) => {
+    if (Array.isArray(sch.parentOccupation)) {
+      return inArray(sch.parentOccupation, parentOccupation);
+    }
+    return true;
+  });
+  console.log("2:  ", schs);
+
+  // if (grade === Grade.ATENTH && "community" in userDetail) {
+  //   const { community } = userDetail;
+  //   schs = schs.filter((sch: any) => sch.community.includes(community));
+  // }
+
+  console.log("3:  ", schs);
 
   if (
     (grade === Grade.UG || grade === Grade.PG) &&
     "isFromMinorCommunity" in userDetail &&
     "community" in userDetail &&
     "ageGrp" in userDetail &&
-    "yearOfStudy" in userDetail
+    "yearOfStudy" in userDetail &&
+    "isGovtSch" in userDetail
   ) {
     console.log("Came here");
+    console.log(schs);
+
     const { isFromMinorCommunity, community, ageGrp, yearOfStudy } = userDetail;
     console.log(schs);
 
     schs = schs.filter((sch: any) => {
-      return (
-        sch.shouldBeFromMinorCommunity === isFromMinorCommunity &&
-        sch.community.includes(community) &&
-        yearOfStudy <= sch.yearOfStudy &&
-        ageGrp <= sch.ageGrp.max &&
-        ageGrp >= sch.ageGrp.min
-      );
+      if (sch.shouldBeFromMinorCommunity) {
+        return sch.shouldBeFromMinorCommunity === isFromMinorCommunity;
+      }
+      return true;
     });
+    console.log(yearOfStudy, ageGrp);
+    console.log("1a:", schs);
+
+    schs = schs.filter((sch: any) => {
+      if (sch.yearOfStudy) {
+        return yearOfStudy <= sch.yearOfStudy;
+      }
+      return true;
+    });
+    console.log("1b:", schs);
+
+    schs = schs.filter((sch: any) => {
+      if (sch.ageGrp.min) {
+        return ageGrp <= sch.ageGrp.max && ageGrp >= sch.ageGrp.min;
+      }
+      return true;
+    });
+
+    console.log("in PG");
+    console.log(schs);
+
+    if (!userDetail.isGovtSch) {
+      schs = schs.filter((sch: any) => sch.isGovtSch === userDetail.isGovtSch);
+    }
     console.log(schs);
   }
 
@@ -67,4 +134,4 @@ export const myfilter = (
   return schs;
 };
 
-const inArray = (arr: string[], val: string) => arr.includes(val);
+const inArray = (arr: string[], val: string) => arr?.includes(val);
