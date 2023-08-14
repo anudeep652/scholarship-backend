@@ -6,10 +6,7 @@ const Exam = new mongoose.Schema(
       type: String,
       required: true,
     },
-    class: {
-      type: Number,
-      required: true,
-    },
+    class: [Number],
     mark: {
       type: Number,
       required: true,
@@ -22,6 +19,8 @@ const Exam = new mongoose.Schema(
     isGovt: Boolean,
     link: String,
     lastDate: String,
+    eligibility:String,
+    benefits:String,
   },
   {
     timestamps: true,

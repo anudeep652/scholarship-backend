@@ -8,9 +8,11 @@ export const AddNewExam = async (req: Request, res: Response) => {
     mark,
     income,
     community,
-    isGovt,
     link,
     lastDate,
+    benefits,
+    eligibility,
+    isGovt,
   } = req.body;
   try {
     const exam = await Exam.create({
@@ -19,9 +21,6 @@ export const AddNewExam = async (req: Request, res: Response) => {
       mark,
       income,
       community,
-      isGovt,
-      link,
-      lastDate,
     });
     res.status(201).json({ message: "New exam added", data: exam });
   } catch (error) {
