@@ -6,10 +6,7 @@ const Exam = new mongoose.Schema(
       type: String,
       required: true,
     },
-    class: {
-      type: Number,
-      required: true,
-    },
+    class: [Number],
     mark: {
       type: Number,
       required: true,
