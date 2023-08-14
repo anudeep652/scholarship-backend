@@ -19,8 +19,8 @@ const Exam = new mongoose.Schema(
     isGovt: Boolean,
     link: String,
     lastDate: String,
-    eligibility:String,
-    benefits:String,
+    eligibility: String,
+    benefits: String,
   },
   {
     timestamps: true,
