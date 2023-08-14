@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import Exam from "../models/ExamSchema";
 
 export const AddNewExam = async (req: Request, res: Response) => {
-  const { name, class: className, mark, income, community } = req.body;
+  const { name, class: className, mark, income, community,link,lastDate,benefits,eligibility,isGovt } = req.body;
   try {
     const exam = await Exam.create({
       name,
@@ -10,6 +10,11 @@ export const AddNewExam = async (req: Request, res: Response) => {
       mark,
       income,
       community,
+      link,
+      lastDate,
+      benefits,
+      eligibility,
+      isGovt
     });
     res.status(201).json({ message: "New exam added", data: exam });
   } catch (error) {
