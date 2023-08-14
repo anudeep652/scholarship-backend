@@ -21,6 +21,11 @@ export const AddNewExam = async (req: Request, res: Response) => {
       mark,
       income,
       community,
+      link,
+      lastDate,
+      benefits,
+      eligibility,
+      isGovt,
     });
     res.status(201).json({ message: "New exam added", data: exam });
   } catch (error) {
@@ -35,6 +40,14 @@ export const filterExams = async (req: Request, res: Response) => {
   try {
     let exams = await Exam.find({});
 
+    // class filter
+    exams = exams.filter((e) => {
+      if (e.class) {
+        return e.class.includes(className);
+      }
+      return true;
+    });
+
     // mark filter
     exams = exams.filter((e) => {
       if (e.mark) {
@@ -48,7 +61,12 @@ export const filterExams = async (req: Request, res: Response) => {
     });
 
     // income filter
-    exams = exams.filter((e) => income <= e.income);
+    exams = exams.filter((e) => {
+      if (e.income) {
+        return income <= e.income;
+      }
+      return true;
+    });
 
     exams = exams.filter((e) => {
       if (e.isGovt) {
