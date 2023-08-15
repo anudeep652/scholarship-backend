@@ -40,6 +40,7 @@ export const filterExams = async (req: Request, res: Response) => {
   try {
     let exams = await Exam.find({});
 
+    console.log("0:", exams);
     // class filter
     exams = exams.filter((e) => {
       if (e.class) {
@@ -48,9 +49,13 @@ export const filterExams = async (req: Request, res: Response) => {
       return true;
     });
 
+    console.log("1:", exams);
+
     // mark filter
     exams = exams.filter((e) => {
-      if (e.mark) {
+      if (e.mark === 0 && e.community.length === 0) return true;
+      if (e.mark && e.mark !== 0) {
+        // if(e.mark === 0)
         return mark >= e.mark;
       } else {
         let cm = e.community.find((c) => c.cm === community);
@@ -59,6 +64,7 @@ export const filterExams = async (req: Request, res: Response) => {
         }
       }
     });
+    console.log("2:", exams);
 
     // income filter
     exams = exams.filter((e) => {
@@ -68,12 +74,17 @@ export const filterExams = async (req: Request, res: Response) => {
       return true;
     });
 
-    exams = exams.filter((e) => {
-      if (e.isGovt) {
-        return isGovt === e.isGovt;
-      }
-      return true;
-    });
+    console.log("3:", exams);
+
+    if (!isGovt) {
+      exams = exams.filter((e) => {
+        if (e.isGovt) {
+          return isGovt === e.isGovt;
+        }
+        return true;
+      });
+    }
+    console.log("4:", exams);
 
     res.status(200).json({ data: exams });
   } catch (error) {
