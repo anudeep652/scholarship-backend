@@ -52,6 +52,7 @@ export const myfilter = (
       if (sch.forSpecialCategory) {
         return sch.forSpecialCategory === false;
       }
+      return true;
     });
   }
 
@@ -96,6 +97,7 @@ export const myfilter = (
         if (sch.shouldBeFromMinorCommunity) {
           return sch.shouldBeFromMinorCommunity === false;
         }
+        return true;
       });
     }
     console.log(yearOfStudy, ageGrp);
