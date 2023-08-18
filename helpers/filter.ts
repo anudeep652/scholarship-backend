@@ -50,7 +50,7 @@ export const myfilter = (
   if (!isSpecialCategory) {
     schs = schs.filter((sch: any) => {
       if (sch.forSpecialCategory) {
-        return isSpecialCategory === false;
+        return sch.forSpecialCategory === false;
       }
     });
   }
