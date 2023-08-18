@@ -47,12 +47,13 @@ export const myfilter = (
   //   inArray(sch.parentOccupation, parentOccupation)
   // }
   // )}
-  schs = schs.filter((sch: any) => {
-    if (sch.forSpecialCategory) {
-      return isSpecialCategory === sch.forSpecialCategory;
-    }
-    return true;
-  });
+  if (!isSpecialCategory) {
+    schs = schs.filter((sch: any) => {
+      if (sch.forSpecialCategory) {
+        return isSpecialCategory === false;
+      }
+    });
+  }
 
   schs = schs.filter((sch: any) => {
     if (sch.marksPercentage) {
@@ -90,12 +91,13 @@ export const myfilter = (
     const { isFromMinorCommunity, community, ageGrp, yearOfStudy } = userDetail;
     console.log(schs);
 
-    schs = schs.filter((sch: any) => {
-      if (sch.shouldBeFromMinorCommunity) {
-        return sch.shouldBeFromMinorCommunity === isFromMinorCommunity;
-      }
-      return true;
-    });
+    if (!isFromMinorCommunity) {
+      schs = schs.filter((sch: any) => {
+        if (sch.shouldBeFromMinorCommunity) {
+          return sch.shouldBeFromMinorCommunity === false;
+        }
+      });
+    }
     console.log(yearOfStudy, ageGrp);
     console.log("1a:", schs);
 
