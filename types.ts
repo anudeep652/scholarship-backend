@@ -8,6 +8,7 @@ export type TuTenth = {
   isSpecialCategory: boolean;
   maximumFamilySiblings: number;
   Nationality: string;
+  isFromMinorCommunity: Boolean;
 };
 
 export type TaTenth = {
@@ -21,6 +22,7 @@ export type TaTenth = {
   maximumFamilySiblings: number;
   Nationality: string;
   community: string;
+  isFromMinorCommunity: Boolean;
 };
 
 export type Tug = {

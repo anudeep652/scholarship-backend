@@ -14,8 +14,10 @@ export const myfilter = (
     Nationality,
     maximumFamilySiblings,
     isGirl,
+    isFromMinorCommunity,
   } = userDetail;
-  console.log("0:  ", schs);
+  console.log(userDetail);
+  // console.log("0:  ", schs);
   schs = schs.filter((sch: any) => {
     return (
       // marksPercentage >= sch.marksPercentage &&
@@ -26,7 +28,7 @@ export const myfilter = (
       sch.Nationality === Nationality
     );
   });
-  console.log("1:  ", schs);
+  // console.log("1:  ", schs);
 
   if (!isGirl) {
     schs = schs.filter((sch: any) => {
@@ -69,28 +71,27 @@ export const myfilter = (
     }
     return true;
   });
-  console.log("2:  ", schs);
+  // console.log("2:  ", schs);
 
   // if (grade === Grade.ATENTH && "community" in userDetail) {
   //   const { community } = userDetail;
   //   schs = schs.filter((sch: any) => sch.community.includes(community));
   // }
 
-  console.log("3:  ", schs);
+  // console.log("3:  ", schs);
 
   if (
     (grade === Grade.UG || grade === Grade.PG) &&
     "isFromMinorCommunity" in userDetail &&
-    "community" in userDetail &&
     "ageGrp" in userDetail &&
     "yearOfStudy" in userDetail &&
     "isGovtSch" in userDetail
   ) {
     console.log("Came here");
-    console.log(schs);
+    // console.log(schs);
 
-    const { isFromMinorCommunity, community, ageGrp, yearOfStudy } = userDetail;
-    console.log(schs);
+    const { ageGrp, yearOfStudy, isFromMinorCommunity } = userDetail;
+    console.log("Before:", schs);
 
     if (!isFromMinorCommunity) {
       schs = schs.filter((sch: any) => {
@@ -100,8 +101,10 @@ export const myfilter = (
         return true;
       });
     }
-    console.log(yearOfStudy, ageGrp);
-    console.log("1a:", schs);
+    console.log("after:", schs);
+
+    // console.log(yearOfStudy, ageGrp);
+    // console.log("1a:", schs);
 
     schs = schs.filter((sch: any) => {
       if (sch.yearOfStudy) {
@@ -109,7 +112,7 @@ export const myfilter = (
       }
       return true;
     });
-    console.log("1b:", schs);
+    // console.log("1b:", schs);
 
     schs = schs.filter((sch: any) => {
       if (sch.ageGrp.min) {
@@ -118,13 +121,13 @@ export const myfilter = (
       return true;
     });
 
-    console.log("in PG");
-    console.log(schs);
+    // console.log("in PG");
+    // console.log(schs);
 
     if (!userDetail.isGovtSch) {
       schs = schs.filter((sch: any) => sch.isGovtSch === userDetail.isGovtSch);
     }
-    console.log(schs);
+    // console.log(schs);
   }
 
   if (grade === Grade.DIPLOMA && "isDifferentlyAbled" in userDetail) {
