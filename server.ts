@@ -7,6 +7,7 @@ import cors from "cors";
 import filterRoutes from "./routes/filterRoutes";
 import authRoutes from "./routes/authRoutes";
 import examRoutes from "./routes/examRoutes";
+import { getAllLive } from "./helpers/filterlive";
 dotenv.config();
 
 const app = express();
@@ -21,6 +22,7 @@ app.use("/findscholarship", filterRoutes);
 app.use("/exam", examRoutes);
 app.use("/user", authRoutes);
 app.post("/login", login);
+app.get("/getalllive", getAllLive);
 
 const connection = async () => {
   try {
