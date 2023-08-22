@@ -7,42 +7,40 @@ import { Request, Response } from "express";
 
 export const getAllLive = async (req: Request, res: Response) => {
   try {
-    let utenth: any = await Utenth.find({});
-    let atenth: any = await Atenth.find({});
+    // let utenth: any = await Utenth.find({});
+    // let atenth: any = await Atenth.find({});
     let ug: any = await Ug.find({});
-    let pg: any = await Pg.find({});
-    let diploma: any = await Diploma.find({});
+    // let pg: any = await Pg.find({});
+    // let diploma: any = await Diploma.find({});
 
-    utenth = utenth
-      .filter((sch: any) => filterLive(sch))
-      .map((sch: any) => {
-        return { name: sch.name, link: sch.link };
-      });
-    atenth = atenth
-      .filter((sch: any) => filterLive(sch))
-      .map((sch: any) => {
-        return { name: sch.name, link: sch.link };
-      });
+    // utenth = utenth
+    //   .filter((sch: any) => filterLive(sch))
+    //   .map((sch: any) => {
+    //     return { name: sch.name, link: sch.link };
+    //   });
+    // atenth = atenth
+    //   .filter((sch: any) => filterLive(sch))
+    //   .map((sch: any) => {
+    //     return { name: sch.name, link: sch.link };
+    //   });
     ug = ug
       .filter((sch: any) => filterLive(sch))
       .map((sch: any) => {
         return { name: sch.name, link: sch.link };
       });
 
-    pg = pg
-      .filter((sch: any) => filterLive(sch))
-      .map((sch: any) => {
-        return { name: sch.name, link: sch.link };
-      });
-    diploma = diploma
-      .filter((sch: any) => filterLive(sch))
-      .map((sch: any) => {
-        return { name: sch.name, link: sch.link };
-      });
+    // pg = pg
+    //   .filter((sch: any) => filterLive(sch))
+    //   .map((sch: any) => {
+    //     return { name: sch.name, link: sch.link };
+    //   });
+    // diploma = diploma
+    //   .filter((sch: any) => filterLive(sch))
+    //   .map((sch: any) => {
+    //     return { name: sch.name, link: sch.link };
+    //   });
 
-    res
-      .status(200)
-      .json({ data: [...utenth, ...atenth, ...ug, ...pg, ...diploma] });
+    res.status(200).json({ data: [...ug] });
   } catch (error) {
     res.status(400).json({ error });
   }
