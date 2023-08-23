@@ -4,12 +4,13 @@ import Ug from "../models/UGSchema";
 import Pg from "../models/PGSchema";
 import Diploma from "../models/DiplomaSchema";
 import { Request, Response } from "express";
+import { data } from "./liveschdata.json";
 
 export const getAllLive = async (req: Request, res: Response) => {
   try {
     // let utenth: any = await Utenth.find({});
     // let atenth: any = await Atenth.find({});
-    let ug: any = await Ug.find({});
+    // let ug: any = await Ug.find({});
     // let pg: any = await Pg.find({});
     // let diploma: any = await Diploma.find({});
 
@@ -23,11 +24,11 @@ export const getAllLive = async (req: Request, res: Response) => {
     //   .map((sch: any) => {
     //     return { name: sch.name, link: sch.link };
     //   });
-    ug = ug
-      .filter((sch: any) => filterLive(sch))
-      .map((sch: any) => {
-        return { name: sch.name, link: sch.link };
-      });
+    // ug = ug
+    //   .filter((sch: any) => filterLive(sch))
+    //   .map((sch: any) => {
+    //     return { name: sch.name, link: sch.link };
+    //   });
 
     // pg = pg
     //   .filter((sch: any) => filterLive(sch))
@@ -40,7 +41,7 @@ export const getAllLive = async (req: Request, res: Response) => {
     //     return { name: sch.name, link: sch.link };
     //   });
 
-    res.status(200).json({ data: [...ug] });
+    res.status(200).json({ data });
   } catch (error) {
     res.status(400).json({ error });
   }
