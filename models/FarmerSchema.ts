@@ -31,12 +31,13 @@ const farmerSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    cases: {
-      images: {
-        type: [String],
-        required: true,
+    cases: [
+      {
+        images: {
+          type: [String],
+        },
       },
-    },
+    ],
   },
   {
     timestamps: true,

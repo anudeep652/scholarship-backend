@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import farmerRouter from "./routes/farmer";
 import doctorRouter from "./routes/doctor";
+import { getFarmerCases } from "./controller/farmer";
 dotenv.config();
 
 const app = express();
@@ -16,6 +17,7 @@ app.use(express.json());
 
 app.use("/farmer", farmerRouter);
 app.use("/doctor", doctorRouter);
+app.get("/cases", getFarmerCases);
 
 const connection = async () => {
   try {

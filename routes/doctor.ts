@@ -6,6 +6,7 @@ import {
   getDoctorDetails,
   newDoctor,
 } from "../controller/doctor";
+import { getFarmerCases } from "../controller/farmer";
 
 const router = Router();
 

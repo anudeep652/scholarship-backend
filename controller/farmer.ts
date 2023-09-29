@@ -2,9 +2,10 @@ import { Request, Response } from "express";
 import Farmer from "../models/FarmerSchema";
 import bcrypt from "bcryptjs";
 import { validateEmail } from "../helpers/authHelpers";
+
 export const getFarmerCases = async (req: Request, res: Response) => {
   try {
-    const cases = await Farmer.find({});
+    const cases = await Farmer.find({}, { cases: 1 });
     res.status(200).json({ message: "All cases", data: cases });
   } catch (error) {
     res.status(400).json({ message: "Error fetching cases", error: error });
@@ -113,9 +114,29 @@ export const getFarmerDetails = async (req: Request, res: Response) => {
   const { id } = req.params;
   try {
     const farmer = await Farmer.findOne({ _id: id });
-    res
+    return res
       .status(200)
       .json({ message: "Farmer details", data: farmer, role: "farmer" });
+  } catch (error) {
+    return res.status(400).json({ message: "Some error occured", error });
+  }
+};
+
+export const newCase = async (req: Request, res: Response) => {
+  const { _id, images } = req.body;
+  console.log(_id);
+  try {
+    const farmer = await Farmer.findOneAndUpdate(
+      {
+        _id,
+      },
+      {
+        $push: { cases: { $each: [{ images }] } },
+      }
+    );
+
+    console.log(farmer);
+    return res.status(200).json({ message: "Case added", data: farmer });
   } catch (error) {
     return res.status(400).json({ message: "Some error occured", error });
   }
