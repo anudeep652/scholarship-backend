@@ -67,6 +67,7 @@ const doctorSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    appointments: [String],
   },
   {
     timestamps: true,
