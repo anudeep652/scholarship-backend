@@ -6,7 +6,7 @@ import { base64ToImage } from "../helpers/image";
 
 export const getFarmerCases = async (req: Request, res: Response) => {
   try {
-    const cases = await Farmer.find({}, { cases: 1 });
+    const cases = await Farmer.find({});
     res.status(200).json({ message: "All cases", data: cases });
   } catch (error) {
     res.status(400).json({ message: "Error fetching cases", error: error });
@@ -15,12 +15,6 @@ export const getFarmerCases = async (req: Request, res: Response) => {
 
 export const newFarmer = async (req: Request, res: Response) => {
   const { name, email, password, confirmPassword } = req.body;
-  // try {
-  //   const newFarmer = await Farmer.create({ ...req.body });
-  //   res.status(201).json({ message: "New case added", data: newFarmer });
-  // } catch (error) {
-  //   res.status(400).json({ message: "Error adding new case", error: error });
-  // }
 
   if (!email || !name || !password || !confirmPassword) {
     return res.status(400).json({ message: "Please fill all the fields " });
