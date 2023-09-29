@@ -8,7 +8,7 @@ import {
   getDoctorDetails,
   newDoctor,
 } from "../controller/doctor";
-import { getFarmerCases } from "../controller/farmer";
+import { getCaseFarmers } from "../controller/farmer";
 
 const router = Router();
 
@@ -19,5 +19,6 @@ router.patch("/edit", editDoctorProfile);
 router.get("/get/:id", getDoctorDetails);
 router.get("/find/:city", findDoctorByLocation);
 router.post("/book", bookDoctor);
+router.post("/case-farmers", getCaseFarmers);
 
 export default router;

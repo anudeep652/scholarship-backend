@@ -43,6 +43,7 @@ export const newDoctor = async (req: Request, res: Response) => {
             phone: user.phone,
             photo: user.photo,
             role: "doctor",
+            appointments: user.appointments,
           });
         }
       } catch (error) {
@@ -75,6 +76,7 @@ export const doctorLogin = async (req: Request, res: Response) => {
         pincode: userExists.pincode,
         phone: userExists.phone,
         photo: userExists.photo,
+        appointments: userExists.appointments,
 
         role: "doctor",
       });
