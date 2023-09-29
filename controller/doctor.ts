@@ -97,10 +97,10 @@ export const editDoctorProfile = async (req: Request, res: Response) => {
 export const getDoctorDetails = async (req: Request, res: Response) => {
   const { id } = req.params;
   try {
-    const farmer = await Doctor.findOne({ _id: id });
+    const doctor = await Doctor.findOne({ _id: id });
     res
       .status(200)
-      .json({ message: "Farmer details", data: farmer, role: "doctor" });
+      .json({ message: "Farmer details", data: doctor, role: "doctor" });
   } catch (error) {
     return res.status(400).json({ message: "Some error occured", error });
   }
@@ -110,6 +110,36 @@ export const getAllDoctors = async (req: Request, res: Response) => {
   try {
     const doctors = await Doctor.find();
     res.status(200).json({ message: "All doctors", data: doctors });
+  } catch (error) {
+    return res.status(400).json({ message: "Some error occured", error });
+  }
+};
+
+export const findDoctorByLocation = async (req: Request, res: Response) => {
+  const { city } = req.params;
+  try {
+    const doctors = await Doctor.find({ city });
+    return res.status(200).json({ message: "All doctors", data: doctors });
+  } catch (error) {
+    return res.status(400).json({ message: "Some error occured", error });
+  }
+};
+
+export const bookDoctor = async (req: Request, res: Response) => {
+  const { doctorId, farmerId } = req.body;
+  console.log(farmerId);
+  try {
+    const doctor = await Doctor.findOneAndUpdate(
+      {
+        _id: doctorId,
+      },
+      {
+        $push: { appointments: farmerId },
+      }
+    );
+    return res
+      .status(200)
+      .json({ message: "Booked successfully", data: doctor });
   } catch (error) {
     return res.status(400).json({ message: "Some error occured", error });
   }

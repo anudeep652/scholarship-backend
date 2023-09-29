@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import Farmer from "../models/FarmerSchema";
 import bcrypt from "bcryptjs";
 import { validateEmail } from "../helpers/authHelpers";
+import { base64ToImage } from "../helpers/image";
 
 export const getFarmerCases = async (req: Request, res: Response) => {
   try {
@@ -124,6 +125,10 @@ export const getFarmerDetails = async (req: Request, res: Response) => {
 
 export const newCase = async (req: Request, res: Response) => {
   const { _id, images } = req.body;
+  // base64ToImage(images);
+  images.forEach((image: string, index: number) =>
+    base64ToImage(image, _id, index + 1)
+  );
   console.log(_id);
   try {
     const farmer = await Farmer.findOneAndUpdate(
