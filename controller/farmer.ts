@@ -56,6 +56,7 @@ export const newFarmer = async (req: Request, res: Response) => {
             city: user.city,
             pincode: user.pincode,
             phone: user.phone,
+            role: "farmer",
           });
         }
       } catch (error) {
@@ -89,9 +90,33 @@ export const farmerLogin = async (req: Request, res: Response) => {
         city: userExists.city,
         pincode: userExists.pincode,
         phone: userExists.phone,
+        photo: userExists.photo,
+        role: "farmer",
       });
     }
     return res.status(400).json({ message: "Invalid password" });
   }
   return res.status(400).json({ message: "No user with this email found" });
+};
+
+export const editProfile = async (req: Request, res: Response) => {
+  const { img, _id } = req.body;
+  try {
+    const farmer = await Farmer.updateOne({ _id }, { photo: img });
+    res.status(200).json({ message: "Profile updated", data: farmer });
+  } catch (error) {
+    return res.status(400).json({ message: "Some error occured", error });
+  }
+};
+
+export const getFarmerDetails = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  try {
+    const farmer = await Farmer.findOne({ _id: id });
+    res
+      .status(200)
+      .json({ message: "Farmer details", data: farmer, role: "farmer" });
+  } catch (error) {
+    return res.status(400).json({ message: "Some error occured", error });
+  }
 };

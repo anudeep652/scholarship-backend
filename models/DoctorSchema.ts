@@ -10,6 +10,10 @@ const doctorSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    photo: {
+      type: String,
+      required: true,
+    },
     address: {
       type: String,
       required: true,

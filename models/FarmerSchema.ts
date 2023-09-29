@@ -10,6 +10,7 @@ const farmerSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    photo: String,
     address: {
       type: String,
       required: true,
