@@ -57,7 +57,6 @@ export const newCase = async (req: Request, res: Response) => {
 
   console.log("done" , result);
 
-  try {
     const farmer = await Farmer.findOneAndUpdate(
       {
         _id,
@@ -70,9 +69,9 @@ export const newCase = async (req: Request, res: Response) => {
     console.log(farmer, "farmer");
     console.log("no err");
     return res.status(200).json({ message: "Case added", data: farmer });
-  } catch (error) {
-    console.log("err");
+  // } catch (error) {
+  //   console.log("err");
 
-    return res.status(400).json({ message: "Some error occured", error });
-  }
+  //   return res.status(400).json({ message: "Some error occured", error });
+  // }
 };
