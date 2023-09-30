@@ -115,3 +115,15 @@ export const getFarmerDetails = async (req: Request, res: Response) => {
     return res.status(400).json({ message: "Some error occured", error });
   }
 };
+
+
+export const getCaseFarmers = async (req: Request, res: Response) => {
+  const { farmers } = req.body;
+  console.log(farmers);
+  try {
+    const caseFarmers = await Farmer.find({ _id: { $in: farmers } });
+    return res.status(200).json({ message: "All farmers", data: caseFarmers });
+  } catch (error) {
+    return res.status(400).json({ message: "Some error occured", error });
+  }
+};

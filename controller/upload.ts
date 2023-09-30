@@ -5,19 +5,21 @@ import { base64ToImage } from "../helpers/image";
 import { get } from "http";
 import fs from "fs";
 
-
-
-function getPhoto(id : string , length : number){
-  for(let i = 1 ; i <= length ; i++){
-    const data = fs.readFileSync(`images/${id}/${i}.png` , {encoding : 'base64'});
-    console.log(classifyImage(data));
+async function getPhoto(id: string, length: number) {
+  let arr = []
+  for (let i = 1; i <= length; i++) {
+    const data = fs.readFileSync(`images/${id}/${i}.png`, {
+      encoding: "base64",
+    });
+    const result = await classifyImage(data);
+    console.log('kkkkkkkkkkkkkk');
+    
+    arr.push(result)
   }
+  return arr
 }
 
-
-
-
-function classifyImage(image: any) {
+async function classifyImage(image: any) {
   return axios({
     method: "POST",
     url: "https://classify.roboflow.com/cattle-diseases/1",
@@ -35,7 +37,7 @@ function classifyImage(image: any) {
     })
     .catch(function (error: any) {
       console.log(error);
-      return error.message;
+      return error;
     });
 }
 
@@ -48,10 +50,12 @@ export const newCase = async (req: Request, res: Response) => {
   console.log(_id);
 
   images.forEach((index: any) => {
-    console.log(`images/${_id}/${index + 1}.png`);   
+    console.log(`images/${_id}/${index + 1}.png`);
   });
 
-  getPhoto(_id , images.length);
+  const result = await getPhoto(_id, images.length);
+
+  console.log("done" , result);
 
   try {
     const farmer = await Farmer.findOneAndUpdate(
@@ -63,9 +67,12 @@ export const newCase = async (req: Request, res: Response) => {
       }
     );
 
-    console.log(farmer);
+    console.log(farmer, "farmer");
+    console.log("no err");
     return res.status(200).json({ message: "Case added", data: farmer });
   } catch (error) {
+    console.log("err");
+
     return res.status(400).json({ message: "Some error occured", error });
   }
 };
