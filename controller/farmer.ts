@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import Farmer from "../models/FarmerSchema";
 import bcrypt from "bcryptjs";
 import { validateEmail } from "../helpers/authHelpers";
-import { base64ToImage } from "../helpers/image";
 
 export const getFarmerCases = async (req: Request, res: Response) => {
   try {
@@ -118,30 +117,6 @@ export const getFarmerDetails = async (req: Request, res: Response) => {
     return res
       .status(200)
       .json({ message: "Farmer details", data: farmer, role: "farmer" });
-  } catch (error) {
-    return res.status(400).json({ message: "Some error occured", error });
-  }
-};
-
-export const newCase = async (req: Request, res: Response) => {
-  const { _id, images } = req.body;
-  // base64ToImage(images);
-  images.forEach((image: string, index: number) =>
-    base64ToImage(image, _id, index + 1)
-  );
-  console.log(_id);
-  try {
-    const farmer = await Farmer.findOneAndUpdate(
-      {
-        _id,
-      },
-      {
-        $push: { cases: { $each: [{ images }] } },
-      }
-    );
-
-    console.log(farmer);
-    return res.status(200).json({ message: "Case added", data: farmer });
   } catch (error) {
     return res.status(400).json({ message: "Some error occured", error });
   }

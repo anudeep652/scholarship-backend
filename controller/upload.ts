@@ -1,17 +1,26 @@
 import { Request, Response } from "express";
 import axios from "axios";
+import Farmer from "../models/FarmerSchema";
+import { base64ToImage } from "../helpers/image";
+import { get } from "http";
 import fs from "fs";
-const path = require('path');
-import { buffer } from "stream/consumers";
 
-// const API_KEY = "rf_TuSYLo2RC2NJuerOvKXKHOGqyKf2";
+
+
+function getPhoto(id : string , length : number){
+  for(let i = 1 ; i <= length ; i++){
+    const data = fs.readFileSync(`images/${id}/${i}.png` , {encoding : 'base64'});
+    console.log(classifyImage(data));
+  }
+}
+
 
 
 
 function classifyImage(image: any) {
   return axios({
     method: "POST",
-    url: "https://classify.roboflow.com/cow-diseae-identifier/1",
+    url: "https://classify.roboflow.com/cattle-diseases/1",
     params: {
       api_key: "NOn0ptB8FpdN0T5Hihgq",
     },
@@ -30,22 +39,33 @@ function classifyImage(image: any) {
     });
 }
 
-export const farmerUpload = async (req: Request, res: Response) => {
-  const { images } = req.body;
-  // const img1 = JSON.parse(images);
+export const newCase = async (req: Request, res: Response) => {
+  const { _id, images } = req.body;
+  // base64ToImage(images);
+  images.forEach((image: string, index: number) =>
+    base64ToImage(image, _id, index + 1)
+  );
+  console.log(_id);
 
-  // Decode base64 data into binary
-const binaryData = Buffer.from(images, 'base64');
+  images.forEach((index: any) => {
+    console.log(`images/${_id}/${index + 1}.png`);   
+  });
 
-// Specify the output file path
-const outputPath = path.join('images', 'output.jpg'); // You can change the filename and extension as needed
+  getPhoto(_id , images.length);
 
-// Write the binary data to a file
-fs.writeFileSync(outputPath, binaryData);
+  try {
+    const farmer = await Farmer.findOneAndUpdate(
+      {
+        _id,
+      },
+      {
+        $push: { cases: { $each: [{ images }] } },
+      }
+    );
 
-  const diseases = await classifyImage(images);
-
-  console.log("Diseases:", diseases);
-
-  return res.status(200).json({ message: "Image uploaded", data: diseases });
+    console.log(farmer);
+    return res.status(200).json({ message: "Case added", data: farmer });
+  } catch (error) {
+    return res.status(400).json({ message: "Some error occured", error });
+  }
 };
