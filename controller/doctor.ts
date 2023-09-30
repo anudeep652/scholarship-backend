@@ -43,6 +43,7 @@ export const newDoctor = async (req: Request, res: Response) => {
             phone: user.phone,
             photo: user.photo,
             role: "doctor",
+            appointments: user.appointments,
           });
         }
       } catch (error) {
@@ -75,6 +76,7 @@ export const doctorLogin = async (req: Request, res: Response) => {
         pincode: userExists.pincode,
         phone: userExists.phone,
         photo: userExists.photo,
+        appointments: userExists.appointments,
 
         role: "doctor",
       });
@@ -125,7 +127,7 @@ export const findDoctorByLocation = async (req: Request, res: Response) => {
   }
 };
 
-export const bookDoctor = async (req: Request, res: Response) => {
+export const bookDoctorVaccine = async (req: Request, res: Response) => {
   const { doctorId, farmerId } = req.body;
   console.log(farmerId);
   try {
@@ -134,12 +136,41 @@ export const bookDoctor = async (req: Request, res: Response) => {
         _id: doctorId,
       },
       {
-        $push: { appointments: farmerId },
+        $push: { vaccineAppointments: farmerId },
       }
     );
     return res
       .status(200)
       .json({ message: "Booked successfully", data: doctor });
+  } catch (error) {
+    return res.status(400).json({ message: "Some error occured", error });
+  }
+};
+
+export const bookDoctor = async (req: Request, res: Response) => {
+  const { images, farmer_id, doctor_id } = req.body;
+  try {
+    const doctor = await Doctor.findOneAndUpdate(
+      {
+        _id: doctor_id,
+      },
+      {
+        $push: { appointments: { farmer_id, images } },
+      }
+    );
+    return res
+      .status(200)
+      .json({ message: "Booked successfully", data: doctor });
+  } catch (error) {
+    return res.status(400).json({ message: "Some error occured", error });
+  }
+};
+
+export const getCases = async (req: Request, res: Response) => {
+  const { doctor_id } = req.params;
+  try {
+    const cases = await Doctor.findOne({ _id: doctor_id }, { appointments: 1 });
+    return res.status(200).json({ message: "All cases", data: cases });
   } catch (error) {
     return res.status(400).json({ message: "Some error occured", error });
   }
