@@ -33,6 +33,7 @@ const farmerSchema = new mongoose.Schema(
     },
     cases: [
       {
+        doctor_id: String,
         images: {
           type: [String],
         },

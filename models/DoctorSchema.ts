@@ -67,7 +67,15 @@ const doctorSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    appointments: [String],
+    vaccineAppointments: [String],
+    appointments: {
+      type: [
+        {
+          farmer_id: String,
+          images: [String],
+        },
+      ],
+    },
   },
   {
     timestamps: true,

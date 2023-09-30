@@ -17,7 +17,6 @@ app.use(express.json());
 
 app.use("/farmer", farmerRouter);
 app.use("/doctor", doctorRouter);
-app.get("/cases", getFarmerCases);
 
 const connection = async () => {
   try {

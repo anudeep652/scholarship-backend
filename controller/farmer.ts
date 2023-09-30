@@ -119,7 +119,7 @@ export const getFarmerDetails = async (req: Request, res: Response) => {
 
 export const newCase = async (req: Request, res: Response) => {
   const { _id, images } = req.body;
-  // base64ToImage(images);
+  console.log(images);
   images.forEach((image: string, index: number) =>
     base64ToImage(image, _id, index + 1)
   );
@@ -135,7 +135,9 @@ export const newCase = async (req: Request, res: Response) => {
     );
 
     console.log(farmer);
-    return res.status(200).json({ message: "Case added", data: farmer });
+    return res
+      .status(200)
+      .json({ message: "Case added", data: farmer, images });
   } catch (error) {
     return res.status(400).json({ message: "Some error occured", error });
   }
